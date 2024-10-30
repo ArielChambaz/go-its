@@ -50,13 +50,27 @@ func GetInput() (string, string, string, int) {
 	return firstName, lastName, email, userTickets
 }
 
-func BookTicket(remainingTickets int, conferenceName string, booking []string, firstName string, lastName string, email string, userTickets int) (int, bool) {
+func BookTicket(remainingTickets int, conferenceName string, bookings []map[string]string, firstName string, lastName string, email string, userTickets int) (int, bool) {
 	remainingTickets = remainingTickets - userTickets
+
+	// Create a map to store user information
+	userInfo := map[string]string{
+		"firstName": firstName,
+		"lastName":  lastName,
+		"email":     email,
+		"tickets":   fmt.Sprintf("%d", userTickets),
+	}
+
+	bookings = append(bookings, userInfo)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v.\n", firstName, lastName, userTickets, email)
 	fmt.Printf("We have %v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-	firstNames := PrintFirstName(booking)
+	// Extract first names from the bookings
+	var firstNames []string
+	for _, booking := range bookings {
+		firstNames = append(firstNames, booking["firstName"])
+	}
 	fmt.Printf("These are the first names of all the attendees: %v\n", firstNames)
 
 	noTicketsRemaining := remainingTickets == 0 || remainingTickets < 0

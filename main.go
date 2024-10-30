@@ -10,7 +10,7 @@ func main() {
 	var conferenceName = "Go Conference"
 	const conferenceTickets = 50
 	var remainingTickets = 50
-	var booking []string
+	var booking []map[string]string
 
 	helper.Greet(conferenceName, conferenceTickets, remainingTickets)
 
@@ -22,7 +22,12 @@ func main() {
 
 		firstName, lastName, email, userTickets = helper.GetInput()
 
-		booking = append(booking, firstName+" "+lastName)
+		booking = append(booking, map[string]string{
+			"firstName":   firstName,
+			"lastName":    lastName,
+			"email":       email,
+			"userTickets": fmt.Sprintf("%d", userTickets),
+		})
 
 		if helper.ValidateInput(firstName, lastName, email, userTickets, remainingTickets) {
 
