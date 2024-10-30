@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -34,6 +35,9 @@ func main() {
 			var noTicketsRemaining bool
 			remainingTickets, noTicketsRemaining = helper.BookTicket(remainingTickets, conferenceName, booking, firstName, lastName, email, userTickets)
 
+			// Start a goroutine to send a confirmation email
+			go sendConfirmationEmail(firstName, lastName, email, userTickets)
+
 			type RandomStruct struct {
 				Value1 int
 				Value2 string
@@ -57,4 +61,10 @@ func main() {
 			helper.MessError(firstName, lastName, email, userTickets, remainingTickets)
 		}
 	}
+}
+
+// Function to send a confirmation email
+func sendConfirmationEmail(firstName, lastName, email string, userTickets int) {
+	time.Sleep(2 * time.Second) // Simulate a delay in sending the email
+	fmt.Printf("Sending confirmation email to %v %v at %v for booking %v tickets.\n", firstName, lastName, email, userTickets)
 }
