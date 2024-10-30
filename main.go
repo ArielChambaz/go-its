@@ -34,6 +34,20 @@ func main() {
 			var noTicketsRemaining bool
 			remainingTickets, noTicketsRemaining = helper.BookTicket(remainingTickets, conferenceName, booking, firstName, lastName, email, userTickets)
 
+			type RandomStruct struct {
+				Value1 int
+				Value2 string
+				Value3 float64
+			}
+
+			randomStruct := RandomStruct{
+				Value1: 42,
+				Value2: "randomString",
+				Value3: 3.14,
+			}
+
+			fmt.Printf("RandomStruct: %+v\n", randomStruct)
+
 			if noTicketsRemaining {
 				fmt.Printf("Sorry, we are sold out. Please check back later.\n")
 				break
